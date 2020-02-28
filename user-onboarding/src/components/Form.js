@@ -4,6 +4,13 @@ import * as Yup from "yup";
 import axios from "axios";
 import styled from "styled-components";
 
+const NameHodor = styled.div `
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+`;
+
 const OnboardForm = ({ values, errors, touched, status }) => {
     const [user, setUser] = useState([]);
     useEffect(() => {
@@ -12,39 +19,44 @@ const OnboardForm = ({ values, errors, touched, status }) => {
     return (
         <div>
             <Form>
-                <label htmlFor="name">Name: 
-                <Field
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                />
-                {touched.name && errors.name && (
-                    <p className="errors">{errors.name}</p>
-                )}
-                </label>
-                <label htmlFor="email">email: 
-                <Field
-                    id="email"
-                    type="text"
-                    name="email"
-                    placeholder="your@email.here"
-                />
-                {touched.email && errors.email && (
-                    <p className="errors">{errors.email}</p>
-                )}
-                </label>
-                <label htmlFor="password">Password: 
-                <Field
-                    id="password"
-                    type="text"
-                    name="password"
-                    placeholder="password"
-                />
-                {touched.password && errors.password && (
-                    <p className="errors">{errors.password}</p>
-                )}
-                </label>
+                <NameHodor>
+                    <label htmlFor="name">Name: 
+                    <Field
+                        id="name"
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        className="input"
+                    />
+                    {touched.name && errors.name && (
+                        <p className="errors">{errors.name}</p>
+                    )}
+                    </label>
+                    <label htmlFor="email">email: 
+                    <Field
+                        id="email"
+                        type="text"
+                        name="email"
+                        placeholder="your@email.here"
+                        className="input"
+                    />
+                    {touched.email && errors.email && (
+                        <p className="errors">{errors.email}</p>
+                    )}
+                    </label>
+                    <label htmlFor="password">Password: 
+                    <Field
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        className="input"
+                    />
+                    {touched.password && errors.password && (
+                        <p className="errors">{errors.password}</p>
+                    )}
+                    </label>
+                </NameHodor>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 <label>
                 <Field
@@ -52,15 +64,26 @@ const OnboardForm = ({ values, errors, touched, status }) => {
                     name="terms"
                     checked={values.terms}
                 />
+                
+                I have read and agree with Terms and Conditions
                 {touched.terms && errors.terms && (
                     <p className="errors">{errors.terms}</p>
-                )}
-                I have read and agree with Terms and Conditions</label>
+                )}</label>
                 <button type="submit">Submit</button>
             </Form>
             {/* <pre>{JSON.stringify(values, null, 2)}</pre>
             <pre>{JSON.stringify(errors, null, 2)}</pre> */}
+            <h3>Already On Board:</h3>
+            {user.map(person => {
+                return (
+                    <ul key={person.id}>
+                        <li>{person.name}</li>
+                        <li className="nobullet">{person.email}</li>
+                    </ul>
+                );
+            })}
         </div>
+        
     );
 };
 
